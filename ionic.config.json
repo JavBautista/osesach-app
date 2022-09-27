@@ -1,0 +1,7 @@
+{
+  "name": "osesach",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
