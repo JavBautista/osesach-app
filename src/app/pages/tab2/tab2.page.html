@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mensajes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!--<ion-searchbar inputmode="text"
+  (ionChange)="onSearchChange($event)"
+  [debounce]="400"></ion-searchbar>
+  -->
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="nuevaConversacion()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <!-- List of Text Items -->
+  <ion-list>
+    
+
+    <!--REFRESHER-->
+    <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <!--COMPONENTE DE ELEMENTOS PRODUCTOS-->
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12" sizeLg="3" sizeMd="4" sizeSm="6" sizeXs="12"
+              *ngFor="let conversartion of conversartions">
+              <ion-item mode="ios" button (click)="openMessages(conversartion)">
+                <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+                <ion-icon slot="end" name="chatbubbles-outline"></ion-icon>
+                  
+                  <ion-label>
+                    <h3>{{conversartion.supervisor.name}}</h3>
+                  </ion-label>
+                  
+                  
+                </ion-item>
+                
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+      
+
+    <!--INFINITE SCROLL -->
+    <ion-infinite-scroll 
+        [disabled]="!habilitado"
+        threshold="150px" 
+        (ionInfinite)="siguientes($event)">
+      <ion-infinite-scroll-content>
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+   
+  </ion-list>
+
+</ion-content>

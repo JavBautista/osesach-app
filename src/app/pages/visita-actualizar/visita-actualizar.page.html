@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Actualizar Visita</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>{{directory.nombre_unidad}}</ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list mode="ios">
+    <ion-item>
+      <ion-label position="floating">CALLE</ion-label>
+      <ion-textarea [(ngModel)]="directory.nombre_vialidad"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">No.</ion-label>
+      <ion-textarea [(ngModel)]="directory.numero_exterior_o_kilometro"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">COLONIA</ion-label>
+      <ion-textarea [(ngModel)]="directory.nombre_asentamiento_humano"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">CP</ion-label>
+      <ion-textarea [(ngModel)]="directory.codigo_postal"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">TELEFONO</ion-label>
+      <ion-textarea [(ngModel)]="directory.numero_telefono"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">EMAIL</ion-label>
+      <ion-textarea [(ngModel)]="directory.correo_electronico"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">PAGINA WEB</ion-label>
+      <ion-textarea [(ngModel)]="directory.sitio_internet"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+  <section>
+    <ion-button 
+        expand="block" 
+        mode="ios"
+        (click)="saveActualizacion()"
+    >Guardar</ion-button>
+  </section>
+
+</ion-content>

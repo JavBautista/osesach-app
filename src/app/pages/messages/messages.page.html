@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mensajes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngIf="nuevo==1">
+      <ion-label>Mensaje a: {{persona.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+    
+  <ion-list mode="ios">
+      <ion-item *ngFor="let msg of conversation.messages">
+
+        <ion-label *ngIf="msg.author_id!=usuario.person_id">
+          <p>{{ conversation.supervisor.name }}:</p>
+          <h2>{{msg.message}}</h2>
+          <p>{{msg.created_at}}</p>
+        </ion-label>
+        <ion-label *ngIf="msg.author_id==usuario.person_id" class="ion-text-right">
+          <p>Yo:</p>
+          <h2>{{msg.message}}</h2>
+          <p>{{msg.created_at}}</p>
+        </ion-label>
+
+      </ion-item>
+  </ion-list>
+
+
+
+  <ion-item fill="outline">
+    <ion-label position="floating">Responder</ion-label>
+    <ion-input placeholder="Ingrese mensaje" [(ngModel)]="new_message"></ion-input>    
+  </ion-item>
+
+  <ion-button (click)="enviarMsg()" color="primary" expand="block" shape="round">
+    <ion-icon slot="end" name="paper-plane"></ion-icon> Enviar
+  </ion-button>    
+
+</ion-content>
+

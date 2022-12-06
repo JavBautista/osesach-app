@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Avance</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <ion-card-header>
+      <ion-card-subtitle>{{directory.nombre_unidad }}</ion-card-subtitle>
+      <ion-card-title>{{directory.nombre_clase_actividad }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{directory.nombre_vialidad}} #{{directory.numero_exterior_o_kilometro}}</p>
+      <p>{{directory.nombre_asentamiento_humano}} </p>
+      <p>CP {{directory.codigo_postal}} </p>
+    </ion-card-content>
+    <ion-button (click)="openNavigatorGoogleMaps()" color="secondary" expand="block" mode="ios" shape="round">
+      <ion-icon slot="start" name="map"></ion-icon>
+      <ion-icon slot="end" name="open-outline"></ion-icon>
+      Abrir en google maps 
+    </ion-button>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header> Visitas realizadas </ion-list-header>
+    <ion-list mode="ios">
+      <ion-item *ngFor="let visit of visits" button (click)="abrirVisita(visit)">
+        <ion-label>
+          <h2>{{visit.status.description}}</h2>
+          <h3>{{visit.observations}}</h3>
+          <p>{{visit.created_at}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col>
+        <img src="/assets/images/logo.jpeg">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-card mode="ios">  
+    <ion-card-header>
+      <ion-card-title>
+        <h2>Bienvenido</h2> 
+        <h3>{{ usuario.name }}</h3>
+      </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Unidades asignadas</ion-label>
+          <ion-note slot="end">{{asignadas}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Unidades trabajadas</ion-label>
+          <ion-note slot="end">{{trabajadas}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Unidades por visitar</ion-label>
+          <ion-note slot="end">{{faltantes}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Avance</ion-label>
+          <ion-note slot="end">{{porcentaje_avance}}%</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-progress-bar type="determinate" [value]="porcentaje_progressbar" color="primary"></ion-progress-bar>
+        </ion-item>  
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+</ion-content>

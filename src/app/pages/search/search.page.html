@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buscar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar inputmode="text"
+  (ionChange)="onSearchChange($event)"
+  [debounce]="400"></ion-searchbar>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" sizeLg="3" sizeMd="4" sizeSm="6" sizeXs="12"
+            *ngFor="let directory of directories">
+            <!--AQUI DEBERIA IR COMPONENTE DE PROVEEDOR-->
+            <ion-item button (click)="selectDiretory(directory)" mode="ios" [color]="directory.status_id?'medium':''">
+              <ion-thumbnail slot="start">
+                <img alt="Silhouette of mountains" src="/assets/images/map_on.png" />
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{directory.nombre_unidad}}</h2>
+                <p>{{directory.nombre_vialidad}} # {{directory.numero_exterior_o_kilometro}}</p>                
+                <p>Col. {{directory.nombre_asentamiento_humano}} </p>
+                <p>CP. {{directory.codigo_postal}} </p>
+                <h3>Asignado {{ directory.asignada?'SI':'NO' }} </h3>
+                <h3>Visitado {{ directory.status_id?'SI':'NO' }} </h3>
+              </ion-label>
+            </ion-item>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

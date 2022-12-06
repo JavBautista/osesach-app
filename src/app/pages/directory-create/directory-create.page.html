@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nueva direccion</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list mode="ios">
+    
+    <ion-item button (click)="seleccionarActividad()">
+        <ion-label>
+            <p>Actividad</p>
+            <h2><strong>{{new_directory.codigo_scian}}</strong></h2>
+            <h2><strong>{{new_directory.nombre_clase_actividad}}</strong></h2>
+
+        </ion-label>
+    </ion-item>
+    
+
+    <ion-item>
+      <ion-label position="floating">UNIDAD</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.nombre_unidad"></ion-textarea>
+    </ion-item>
+
+    <ion-item button (click)="selectNumeroPersonal()">
+      <ion-label>
+          <p>NO PERSONAL OCUPADO</p>
+          <h2><strong>{{new_directory.descripcion_estrato_personal_ocupado}}</strong></h2>
+
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CALLE</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.nombre_vialidad"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">No.</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.numero_exterior_o_kilometro"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">COLONIA</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.nombre_asentamiento_humano"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">CP</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.codigo_postal"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">TELEFONO</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.numero_telefono"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">EMAIL</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.correo_electronico"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">PAGINA WEB</ion-label>
+      <ion-textarea [(ngModel)]="new_directory.sitio_internet"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+  <section>
+    <ion-button 
+        expand="block" 
+        mode="ios"
+        (click)="saveNewDirectory()"
+    >Generar</ion-button>
+  </section>
+
+</ion-content>

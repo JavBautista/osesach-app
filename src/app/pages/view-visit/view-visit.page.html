@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Visita</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{directory.nombre_unidad }}</ion-card-subtitle>
+      <ion-card-title>{{directory.nombre_clase_actividad }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{directory.nombre_vialidad}} #{{directory.numero_exterior_o_kilometro}}</p>
+      <p>{{directory.nombre_asentamiento_humano}} </p>
+      <p>CP {{directory.codigo_postal}} </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>      
+      <ion-card-title>Detalle de  Visita</ion-card-title>
+    </ion-card-header>    
+    
+    <ion-card-content>
+
+      <ion-list mode="ios">
+        <ion-item>
+            <ion-label>
+                <p>Estatus</p>
+                <h2><strong>{{visit.status_id}}</strong></h2>
+            </ion-label>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label>
+            <p>  No. Trabjadores Hombres</p>
+            <h2>{{visit.no_personas_hombres}}</h2>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <p>  No. Trabjadores Mujeres</p>
+            <h2>{{visit.no_personas_mujeres}}</h2>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+              <p>Rango de edades</p>
+              <h2><strong>{{visit.rango_edades}}</strong></h2>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <p>  Comentarios</p>
+            <h2>{{visit.observations}}</h2>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <p>
+            ¿De qué manera el ayuntamiento podría ayudar al desarrollo de su negocio?</p>
+            <h2>{{visit.consulta}}</h2>
+          </ion-label>
+        </ion-item>
+        
+      </ion-list>
+
+
+    </ion-card-content>
+    
+
+    
+  </ion-card>
+
+</ion-content>

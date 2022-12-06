@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Directorio</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="opciones(directory)">
+      <ion-icon name="ellipsis-horizontal"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-card>
+    <div id='map'></div>
+    <ion-card-header>
+      <ion-card-subtitle>{{directory.nombre_unidad }}</ion-card-subtitle>
+      <ion-card-title>{{directory.nombre_clase_actividad }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{directory.nombre_vialidad}} #{{directory.numero_exterior_o_kilometro}}</p>
+      <p>{{directory.nombre_asentamiento_humano}} </p>
+      <p>CP {{directory.codigo_postal}} </p>
+    </ion-card-content>
+    <ion-button (click)="openNavigatorGoogleMaps()" color="secondary" expand="block" mode="ios" shape="round">
+      <ion-icon slot="start" name="map"></ion-icon>
+      <ion-icon slot="end" name="open-outline"></ion-icon>
+      Abrir en google maps 
+    </ion-button>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>      
+      <ion-card-title>Marcar Visita</ion-card-title>
+    </ion-card-header>    
+    
+    <ion-card-content>
+
+      <ion-list mode="ios">
+        <ion-item button (click)="selectEstatusVisita()">
+            <ion-label>
+                <p>Estatus</p>
+                <h2><strong>{{estatus_visita}}</strong></h2>
+            </ion-label>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="stacked">No. Trabjadores Hombres</ion-label>
+          <ion-textarea [(ngModel)]="no_personas_hombres" type="number"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">No. Trabjadores Mujeres</ion-label>
+          <ion-textarea [(ngModel)]="no_personas_mujeres" type="number"></ion-textarea>
+        </ion-item>
+
+        <ion-item button (click)="selectRangoEdades()">
+          <ion-label>
+              <p>Rango de edades</p>
+              <h2><strong>{{rango_edades}}</strong></h2>
+          </ion-label>
+      </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Comentarios</ion-label>
+          <ion-textarea [(ngModel)]="comentario" placeholder="Ingrese comentario de la visita" type="text"></ion-textarea>
+        </ion-item>
+
+        <ion-item button (click)="opcionesConsulta()">
+          <ion-label position="stacked" class="ion-text-wrap">¿De qué manera el ayuntamiento podría ayudar al desarrollo de su negocio?
+          </ion-label>
+          <ion-textarea [(ngModel)]="consulta" placeholder="" type="text"></ion-textarea>
+        </ion-item>
+        
+      </ion-list>
+
+
+    </ion-card-content>
+    
+    <ion-button 
+        expand="block" 
+        mode="ios"
+        [disabled]="estatus_visita==''" 
+        (click)="guardarVisita()"
+    >GUARDAR</ion-button>
+    
+  </ion-card>
+
+ 
+
+</ion-content>
