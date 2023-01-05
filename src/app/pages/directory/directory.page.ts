@@ -1,13 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActionSheetController, AlertController, ModalController, ToastController } from '@ionic/angular';
 import { DirectoriesService } from 'src/app/services/directories.service';
-import { Directory } from '../../interfaces/interfaces';
+import { UserPhoto,Directory } from '../../interfaces/interfaces';
 import { VisitaActualizarPage } from '../visita-actualizar/visita-actualizar.page';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@awesome-cordova-plugins/launch-navigator/ngx';
+import { PhotoService } from '../../services/photo.service';
+import { environment } from '../../../environments/environment';
+import { DirectoryImagePage } from '../directory-image/directory-image.page';
 
 declare var mapboxgl: any;
 declare var MapboxDirections: any;
+
+const URL= environment.url;
 
 @Component({
   selector: 'app-directory',
@@ -36,6 +41,10 @@ export class DirectoryPage implements OnInit {
 
   btnEnableSave=true;
 
+  src_image='';
+  existe_image=0;
+
+  foto_tomada=false;
 
   constructor( 
       private launchNavigator:LaunchNavigator,
@@ -44,12 +53,21 @@ export class DirectoryPage implements OnInit {
       private alertController:AlertController,
       private directoriesService:DirectoriesService,
       private toastController: ToastController,
-      private geolocation:Geolocation
+      private geolocation:Geolocation,
+      public  photoService: PhotoService,
     ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.getGeo();    
+    if(this.directory.image){
+      this.existe_image=1;
+      this.src_image = `${URL}/storage/${this.directory.image}`;
+    }
+
+    console.log(this.src_image);
+
+    this.getGeo();
+
     this.directoriesService.updateDirectory
           .subscribe(directory=>{
             console.log('Update Emmit');
@@ -61,11 +79,45 @@ export class DirectoryPage implements OnInit {
             this.directory.numero_telefono = directory.numero_telefono;
             this.directory.correo_electronico = directory.correo_electronico;
             this.directory.sitio_internet = directory.sitio_internet;
-           
+            
             this.presentToast("Actualizado correctamente.");
           });
 
+    await this.photoService.clearLocalPhotos();
+    this.foto_tomada=false;
+
+
+
   }
+
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+    this.foto_tomada=true;
+  }
+
+  async startUpload(photo: UserPhoto){
+    console.log('save id: '+this.directory.id);
+ 
+    const directory_id= this.directory.id.toString();
+    const response = await fetch(photo.webviewPath);         
+    const blob = await response.blob();    
+    const formData=new FormData();
+    formData.append('image',blob, photo.filepath)        
+    formData.append('directory_id', directory_id)        
+    
+    const guardado = await  this.directoriesService.uploadPicture(formData);
+    this.foto_tomada=false;
+    if(guardado) this.cerrar();
+  }
+
+  async deleteImage(photo: UserPhoto, position: number){
+
+    console.log(`Delete photo ${photo.filepath} and position ${position}`)
+    await this.photoService.deletePicture(photo, position);
+    this.foto_tomada=false;
+
+  }
+
 
   async presentToast(msg:string='') {
     const toast = await this.toastController.create({
@@ -75,7 +127,8 @@ export class DirectoryPage implements OnInit {
     toast.present();
   }
 
-  cerrar(){
+  async cerrar(){
+    await this.photoService.clearLocalPhotos();
     this.modalCtrl.dismiss();
   }
 
@@ -383,6 +436,54 @@ export class DirectoryPage implements OnInit {
     })
   }
 
+  editarImage(){
+
+  }
+
+  async viewImage(photo: UserPhoto,){
+     const modal = await this.modalCtrl.create({
+      component: DirectoryImagePage,
+      componentProps:{
+        photo:photo,
+        src_image: this.src_image,
+        existe_image:this.existe_image        
+      }      
+    });
+    await modal.present();
+  }
+
+  async deleteImageBD(){
+
+    const alert = await this.alertController.create({
+      header: '¡Desea aliminar esta imagen de la base de datos!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Delete image cancel')
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            console.log('Delete image OK')
+            this.deleteDirectoryImage();
+            
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+
+  }
+
+  async deleteDirectoryImage(){
+    const eliminada = await this.directoriesService.eliminarDirectoryImage(this.directory);
+    if(eliminada) this.cerrar();
+  }
 
 
 }

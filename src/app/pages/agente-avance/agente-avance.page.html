@@ -28,6 +28,33 @@
       Abrir en google maps 
     </ion-button>
   </ion-card>
+  
+
+  <ion-card *ngIf="existe_image==1">
+    <ion-card-header>      
+      <ion-card-title>Imagen</ion-card-title>
+    </ion-card-header>   
+    <ion-card-content>
+      <ion-list>
+
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-img [src]="src_image"></ion-img>
+            </ion-thumbnail>
+           
+            <ion-button slot="end" fill="clear" (click)="viewImage(null)">
+              <ion-icon slot="icon-only" name="eye"></ion-icon>
+            </ion-button>            
+
+          </ion-item>
+      </ion-list>
+
+      
+
+    </ion-card-content>
+  </ion-card>
+
+ 
 
   <ion-list>
     <ion-list-header> Visitas realizadas </ion-list-header>

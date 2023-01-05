@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserPhoto, Usuario } from 'src/app/interfaces/interfaces';
+//import { UserPhoto, Usuario } from 'src/app/interfaces/interfaces';
+import { Usuario } from 'src/app/interfaces/interfaces';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { DirectoriesService } from '../../services/directories.service';
+//import { PhotoService } from '../../services/photo.service';
+import { ActionSheetController } from '@ionic/angular';
 
 
 
@@ -23,6 +26,8 @@ export class Tab0Page implements OnInit {
   constructor(
     private usuarioService:UsuarioService,
     private directoriesService:DirectoriesService,
+    //public photoService: PhotoService,
+    public actionSheetController: ActionSheetController
   ) { }
 
   async ngOnInit() {
@@ -31,6 +36,8 @@ export class Tab0Page implements OnInit {
     console.log(this.usuario);
 
     this.getAvanceAgente();
+  
+    //await this.photoService.loadSaved();
   }
 
   async getAvanceAgente(){
@@ -47,6 +54,42 @@ export class Tab0Page implements OnInit {
           });
 
   }
+
+  /*
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+  }
+
+  public async showActionSheet(photo: UserPhoto, position: number) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Photos',
+      buttons: [
+      {
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.photoService.deletePicture(photo, position);
+        }
+      },
+      {
+        text: 'Upload ',
+        icon: 'cloud-upload',
+        handler: () => {
+          this.photoService.uploadPicture(photo);
+        }
+      }
+      , {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          // Nothing to do, action sheet is automatically closed
+          }
+      }]
+    });
+    await actionSheet.present();
+  }*/
 
 
 

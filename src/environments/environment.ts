@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   //url: 'http://osesach.local'
-  url: 'https://osesach.levcore.app'
+  //url: 'https://osesach.levcore.app'
+  url: 'https://osesach.com'
 };
 
 /*

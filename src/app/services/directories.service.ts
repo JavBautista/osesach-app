@@ -13,8 +13,10 @@ export class DirectoriesService {
 
   newVisita = new EventEmitter<Visit>();
 
-  newDirectory = new EventEmitter<Directory>();
-  updateDirectory = new EventEmitter<Directory>();
+  newDirectory          = new EventEmitter<Directory>();
+  updateDirectory       = new EventEmitter<Directory>();
+  deleteDirectoryImage  = new EventEmitter<Directory>();
+  storeNewImage         = new EventEmitter<Directory>();
 
   sessionFailed = new EventEmitter();
 
@@ -161,12 +163,70 @@ export class DirectoriesService {
 
   }//.actualizarDirectory()
 
-  getSearchDirectories(buscar){
+  getSearchDirectories(pull:boolean =false,buscar){
+    if(pull){
+      this.paginaDirectory=0;
+    }
+    this.paginaDirectory++;
+
     let user = this.usuarioService.getUsuario(); 
     if(!user.person_id){
       this.sessionFailed.emit(); 
     }
-    return this.http.get<RespuestaDirectories>( `${URL}/api/directory/buscar?buscar=${buscar}`);
+    return this.http.get<RespuestaDirectories>( `${URL}/api/directory/buscar?buscar=${buscar}&page=${this.paginaDirectory}`);
   }//.getSearchDirectories()
+
+  getResumenAvanceGeneral(){
+    
+    let url_api = `${URL}/api/directory/resumen-avance-general`;
+    console.log('URL: '+url_api)
+    return this.http.get<any>( url_api  );
+  }//.getResumenAvanceAgente()
+
+
+  eliminarDirectoryImage(directory){
+    const headers=new HttpHeaders({
+      'Authorization': 'Bearer '+this.usuarioService.token,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-Requested-With':'XMMLHttpRequest'
+    });
+
+    return new Promise( resolve=>{
+      this.http.post(`${URL}/api/directory/delete-image`, directory, {headers})
+        .subscribe(resp=>{
+          console.log(resp);
+          if( resp['ok'] ){
+            this.deleteDirectoryImage.emit(resp['directory']); 
+            resolve(true);       
+          }else{            
+            resolve(false);
+          }
+        });
+    });
+
+  }//.actualizarDirectory()
+
+  uploadPicture(formData:FormData){
+    const headers=new HttpHeaders({
+      'Authorization': 'Bearer '+this.usuarioService.token,
+      });
+
+    const url = `${URL}/api/directory/update-image`;
+    
+    return new Promise( resolve=>{
+      this.http.post(url, formData, {headers}) 
+                .subscribe(resp=>{
+                  console.log(resp);
+                  if( resp['ok'] ){
+                    this.storeNewImage.emit(resp['directory']); 
+                    resolve(true);       
+                  }else{                    
+                    resolve(false);
+                  }
+                });
+    });
+ 
+  }//.uploadPicture()
 
 }

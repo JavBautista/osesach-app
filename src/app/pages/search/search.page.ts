@@ -11,8 +11,10 @@ import { DirectoryPage } from '../directory/directory.page';
 })
 export class SearchPage implements OnInit {
 
+  habilitado=true;
   textoBuscar:'';
   directories:Directory[]=[];
+
   constructor(
     private modalCtrl:ModalController,
     private directoriesService:DirectoriesService,
@@ -40,16 +42,39 @@ export class SearchPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  recargar(event){
+    this.siguientes(event, true)
+    this.habilitado=true;
+    this.directories=[];
+  }
+
+
+
   onSearchChange(event){
     this.textoBuscar = event.detail.value;
     this.directories=[];
     if(this.textoBuscar != ''){
 
-      this.getDirectories();
+      //this.getDirectories();
+      this.siguientes(null,true);
     }
   }
 
-  getDirectories(){
+  siguientes(event?, pull:boolean=false){
+    this.directoriesService.getSearchDirectories(pull, this.textoBuscar)
+      .subscribe( resp=>{
+        this.directories.push(...resp.data);
+        if(event){
+          event.target.complete();
+          if(resp.data.length ===0){
+            //event.target.disabled=true;
+            this.habilitado=false;
+          }
+        }
+      });
+  }
+
+  /*getDirectories(){
 
     this.directoriesService.getSearchDirectories(this.textoBuscar)
       .subscribe( resp=>{
@@ -57,7 +82,7 @@ export class SearchPage implements OnInit {
         this.directories.push(...resp.data);       
       });
 
-  }
+  }*/
 
   async selectDiretory(directory){
     console.log('Abrir direccion')

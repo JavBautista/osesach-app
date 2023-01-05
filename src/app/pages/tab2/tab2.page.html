@@ -28,7 +28,6 @@
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <!--COMPONENTE DE ELEMENTOS PRODUCTOS-->
     <ion-grid fixed>
       <ion-row>
         <ion-col size="12" sizeLg="3" sizeMd="4" sizeSm="6" sizeXs="12"
@@ -36,12 +35,9 @@
               <ion-item mode="ios" button (click)="openMessages(conversartion)">
                 <ion-icon slot="start" name="person-circle-outline"></ion-icon>
                 <ion-icon slot="end" name="chatbubbles-outline"></ion-icon>
-                  
-                  <ion-label>
-                    <h3>{{conversartion.supervisor.name}}</h3>
-                  </ion-label>
-                  
-                  
+                  <ion-label>                    
+                    <h3>{{  (usuario.person_id==conversartion.person1_id)?conversartion.person2.name:conversartion.person1.name }} </h3>
+                  </ion-label>                                    
                 </ion-item>
                 
         </ion-col>

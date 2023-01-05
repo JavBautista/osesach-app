@@ -34,6 +34,62 @@
     </ion-button>
   </ion-card>
 
+  <ion-card *ngIf="existe_image==0">
+    <ion-card-header>      
+      <ion-card-title>Agregar imagen</ion-card-title>
+    </ion-card-header>   
+    <ion-card-content>
+      <ion-list>
+    
+          <ion-item *ngFor="let photo of photoService.photos; index as position">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="photo.webviewPath"></ion-img>
+            </ion-thumbnail>
+            <ion-button slot="end" fill="clear" (click)="viewImage(photo)">
+              <ion-icon slot="icon-only" name="eye"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" fill="clear" (click)="startUpload(photo)">
+              <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" fill="clear" (click)="deleteImage(photo, position)">
+              <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+            </ion-button>
+          </ion-item>
+          
+        </ion-list>
+        <ion-button fill="clear" expand="full" (click)="addPhotoToGallery()" [attr.disabled]="foto_tomada ? '' : null">
+          <ion-icon slot="start" name="camera"></ion-icon>
+        </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="existe_image==1">
+    <ion-card-header>      
+      <ion-card-title>Imagen</ion-card-title>
+    </ion-card-header>   
+    <ion-card-content>
+      <ion-list>
+
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <ion-img [src]="src_image"></ion-img>
+            </ion-thumbnail>
+           
+            <ion-button slot="end" fill="clear" (click)="viewImage(null)">
+              <ion-icon slot="icon-only" name="eye"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" fill="clear" (click)="deleteImageBD()">
+              <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+            </ion-button>
+
+          </ion-item>
+      </ion-list>
+
+      
+
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
     <ion-card-header>      
       <ion-card-title>Marcar Visita</ion-card-title>

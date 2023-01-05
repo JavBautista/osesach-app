@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Imagen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card *ngIf="existe_image==0">
+    <img alt="photo" [src]="photo.webviewPath | imageSanitizer"/>
+  </ion-card>
+  <ion-card *ngIf="existe_image==1">
+    <img alt="photo" [src]="src_image">
+  </ion-card>
+
+</ion-content>

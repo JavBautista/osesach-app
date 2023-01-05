@@ -8,10 +8,11 @@ const URL= environment.url;
 @Injectable({
   providedIn: 'root'
 })
-export class MessagesService {
+export class MessagesService  {
 
   newMessage = new EventEmitter<Message>();
   newConversation = new EventEmitter<Conversation>();
+  updateMessagesToRead = new EventEmitter<any>();
 
   paginaConversations =0;
   paginaPersonas =0;
@@ -21,27 +22,37 @@ export class MessagesService {
     private usuarioService:UsuarioService
   ) { }
 
-  getSupervisores(pull:boolean =false, buscar:string=''){
+  getMessagesNotRead(){
+    let user = this.usuarioService.getUsuario(); 
+    let person_id = user.person_id;
+    
+    return this.http.get<any>( `${URL}/api/messages/get-not-read?person_id=${person_id}`);
+  }//.getMessagesNotRead
+
+  getPeopleForMessages(pull:boolean =false, buscar:string=''){
     if(pull){
       this.paginaPersonas=0;
     }
+    let user = this.usuarioService.getUsuario(); 
+    let person_id = user.person_id;
+    let role_id = user.role_id;
     this.paginaPersonas++;
-    return this.http.get<RespuestaPersonas>( `${URL}/api/person/get/supervisores?page=${this.paginaPersonas}&buscar=${buscar}`);
-  }//.getSupervisores
-
-  getAgentes(){  
-    return this.http.get<any>( `${URL}/api/person/get/supervisores`);
-  }//.getAgentes
+    console.log(`${URL}/api/person/get/personal-for-messages?person_id=${person_id}&role_id=${role_id}&page=${this.paginaPersonas}&buscar=${buscar}`);
+    return this.http.get<RespuestaPersonas>( `${URL}/api/person/get/personal-for-messages?person_id=${person_id}&role_id=${role_id}&page=${this.paginaPersonas}&buscar=${buscar}`);
+  }//.getPeopleForMessages
   
 
-  getConversacionesAgente(agent_id:number,pull:boolean =false, buscar:string=''){  
+  getConversaciones(person_id:number,pull:boolean =false, buscar:string=''){  
     if(pull){
       this.paginaConversations=0;
     }
     this.paginaConversations++;
 
-    return this.http.get<RespuestaConversations>( `${URL}/api/conversations/get/agent?agent_id=${agent_id}$page=${this.paginaConversations}&buscar=${buscar}`);
-  }//.getAgentes
+    return this.http.get<RespuestaConversations>( `${URL}/api/conversations/get?person_id=${person_id}$page=${this.paginaConversations}&buscar=${buscar}`);
+   
+  }//.getConversaciones
+
+ 
 
   storeMessage(message:string, conversation_id:number,person_id_dest:number,nuevo:number){
     const headers=new HttpHeaders({
@@ -84,6 +95,38 @@ export class MessagesService {
     });
 
   }//.storeMessage()
+
+
+  updateMessagesNotRead(conversation_id:number){
+    const headers=new HttpHeaders({
+      'Authorization': 'Bearer '+this.usuarioService.token,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-Requested-With':'XMMLHttpRequest'
+      });
+    
+      let user = this.usuarioService.getUsuario(); 
+      let person_id = user.person_id;
+
+      let postParams={
+        'conversation_id':conversation_id,
+        'person_id':person_id
+      }
+
+    return new Promise( resolve=>{
+    this.http.post(`${URL}/api/conversation/update-messages-to-read`, postParams, {headers})
+          .subscribe(resp=>{
+            console.log(resp);
+            if( resp['ok'] ){
+              this.updateMessagesToRead.emit();
+              resolve(true);                     
+            }else{
+              resolve(false);
+            }
+          });
+    });
+
+  }//.updateMessagesNotRead()
 
 
 }

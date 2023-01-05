@@ -20,7 +20,10 @@
       <ion-item *ngFor="let msg of conversation.messages">
 
         <ion-label *ngIf="msg.author_id!=usuario.person_id">
-          <p>{{ conversation.supervisor.name }}:</p>
+          
+          <p> {{ (usuario.person_id==conversation.person1.id)?conversation.person2.name:conversation.person1.name }} :</p>
+          
+          
           <h2>{{msg.message}}</h2>
           <p>{{msg.created_at}}</p>
         </ion-label>

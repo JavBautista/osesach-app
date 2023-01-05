@@ -30,6 +30,7 @@ export class MessagesPage implements OnInit {
     console.log(this.conversation);
 
     this.usuario=this.usuarioService.getUsuario();
+    this.actualizarMensagesNoLeidos();
     
   }
 
@@ -58,6 +59,14 @@ export class MessagesPage implements OnInit {
     
     this.cerrar();
     
+  }
+  
+  async actualizarMensagesNoLeidos(){
+    if(this.nuevo != 1){      
+      let conversation_id= this.conversation.id;
+      await this.messagesService.updateMessagesNotRead(conversation_id);
+    }
+
   }
 
 }

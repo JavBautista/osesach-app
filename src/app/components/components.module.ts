@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { UnidadComponent } from './unidad/unidad.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 
@@ -14,7 +15,8 @@ import { UnidadComponent } from './unidad/unidad.component';
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    PipesModule
   ]
 })
 export class ComponentsModule { }

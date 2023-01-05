@@ -65,8 +65,9 @@ export class Tab2Page implements OnInit {
   }
 
   siguientes(event?, pull:boolean=false){
-    this.messagesService.getConversacionesAgente(this.usuario.person_id,pull, this.textoBuscar)
+    this.messagesService.getConversaciones(this.usuario.person_id,pull, this.textoBuscar)
       .subscribe( resp=>{
+        console.log(resp.data)
         this.conversartions.push(...resp.data);
         if(event){
           event.target.complete();
@@ -119,8 +120,7 @@ export class Tab2Page implements OnInit {
   async nuevaConversacion(){
     console.log('nueva conversacion')
     const modal = await this.modalCtrl.create({
-      component: NewConversationPage,
-      
+      component: NewConversationPage      
     });
     await modal.present();
 
@@ -129,13 +129,25 @@ export class Tab2Page implements OnInit {
       console.log(data);
       this.persona = data;
 
-      //BUscamos si el super ya existe en las conversaciones
+      //BUscamos si la persona ya existe en las conversaciones
       let idp = Number(this.persona.id)
 
-      console.log('A buscar al sup: '+idp)
+      console.log('A buscar a la persona: '+idp)
       
-      let index_c = this.conversartions.findIndex( item=>item.supervisor_id==idp);
-      console.log(index_c)
+      let index_c=-1;
+      //Si es Agente (3) busca en los supervisores, si es Sup (4) busca en los agentes
+      
+      /*if(this.usuario.role_id==3){
+        index_c = this.conversartions.findIndex( item=>item.supervisor_id==idp);
+      }else if(this.usuario.role_id==4){
+        index_c = this.conversartions.findIndex( item=>item.agent_id ==idp);
+      }*/
+      //AUI HAY QUE VER SI BUSCA EN PERSON 1 y 2
+      index_c = this.conversartions.findIndex( item=>item.person1_id ==idp);
+      if(index_c<0)
+      index_c = this.conversartions.findIndex( item=>item.person2_id ==idp);
+      
+      console.log('Index de person en conversation'+index_c)
       
       //console.log(this.conversartions)
       

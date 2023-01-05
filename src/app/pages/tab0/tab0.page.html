@@ -9,8 +9,20 @@
 <ion-content>
   <ion-grid fixed>
     <ion-row>
-      <ion-col>
-        <img src="/assets/images/logo.jpeg">
+      <ion-col size="6">
+        <img src="/assets/images/logo.png">
+        <ion-text color="tertiary">
+          <p>San Andrés CHOLULA</p>
+        </ion-text>
+      </ion-col>
+      <ion-col size="6" style="text-align: left;">
+        <ion-text color="primary">
+          <h3 color="primary">SECRETARÍA DE FOMENTO ECONÓMICO</h3>
+        </ion-text>
+        <ion-text color="secondary">
+          <p>Ayuntamiento<br>2021-2024</p>
+        </ion-text>
+        
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -49,6 +61,24 @@
 
     </ion-card-content>
   </ion-card>
+
+
+<!--<ion-grid>
+  <ion-row>
+    <ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
+      <ion-img [src]="photo.webviewPath" (click)="showActionSheet(photo, position)"></ion-img>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" (click)="addPhotoToGallery()">
+    <ion-fab-button>
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+-->
 
 
 

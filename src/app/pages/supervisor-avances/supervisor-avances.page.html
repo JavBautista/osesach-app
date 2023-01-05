@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Avances</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card mode="ios">  
+    <ion-card-header>
+      <ion-card-title>
+        <h3>Avance general</h3>
+      </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Unidades Totales</ion-label>
+          <ion-note slot="end">{{totales}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Unidades recien agregadas</ion-label>
+          <ion-note slot="end">{{nuevas}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Unidades asignadas</ion-label>
+          <ion-note slot="end">{{asignadas}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Unidades trabajadas</ion-label>
+          <ion-note slot="end">{{trabajadas}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Unidades por visitar</ion-label>
+          <ion-note slot="end">{{faltantes}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Avance</ion-label>
+          <ion-note slot="end">{{porcentaje_avance}}%</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-progress-bar type="determinate" [value]="porcentaje_progressbar" color="primary"></ion-progress-bar>
+        </ion-item>  
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+</ion-content>

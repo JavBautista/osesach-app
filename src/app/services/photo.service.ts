@@ -9,10 +9,9 @@ import { UserPhoto } from '../interfaces/interfaces';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 
-
 import { UsuarioService } from './usuario.service';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+
 
 
 const URL= environment.url;
@@ -26,11 +25,7 @@ export class PhotoService {
   private PHOTO_STORAGE: string = 'photos';
   private platform: Platform;
   
-  constructor(
-    platform: Platform,
-    private http:HttpClient,
-    private usuarioService:UsuarioService
-  ) { 
+  constructor( platform: Platform ) { 
     this.platform = platform;
   }
 
@@ -39,14 +34,14 @@ export class PhotoService {
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
-      quality: 100
+      quality: 90
     });
 
     /*this.photos.unshift({
       filepath: "soon...",
       webviewPath: capturedPhoto.webPath
     });*/
-
+    console.log(capturedPhoto);
     // Save the picture and add it to photo collection
     const savedImageFile = await this.savePicture(capturedPhoto);
     this.photos.unshift(savedImageFile)
@@ -63,6 +58,7 @@ export class PhotoService {
   private async savePicture(photo: Photo) { 
     // Convert photo to base64 format, required by Filesystem API to save
     const base64Data = await this.readAsBase64(photo);
+    console.log(base64Data);
 
 
     
@@ -73,6 +69,7 @@ export class PhotoService {
       data: base64Data,
       directory: Directory.Data
     });
+    console.log(savedFile);
 
     
 
@@ -126,7 +123,7 @@ export class PhotoService {
     // Retrieve cached photo array data
     const photoList = await Preferences.get({ key: this.PHOTO_STORAGE });
     this.photos = JSON.parse(photoList.value) || [];
-
+    console.log(this.photos);
     // Easiest way to detect when running on the web:
     // “when the platform is NOT hybrid, do this”
     if (!this.platform.is('hybrid')) {
@@ -164,6 +161,37 @@ export class PhotoService {
     });
   }//.deletePicture()
 
+  public async clearLocalPhotos(){
+    console.log('Limpiando fotos')
+    
+    
+    // Retrieve cached photo array data
+    const photoList = await Preferences.get({ key: this.PHOTO_STORAGE });
+    this.photos = JSON.parse(photoList.value) || [];
+    console.log(this.photos);
+    for (let photo of this.photos) {
+        await Filesystem.deleteFile({
+            path: photo.filepath,
+            directory: Directory.Data
+        });
+      }
+    
+    Preferences.clear();
+  }
+
+  
+
+  /*async uploadData(formData:FormData){  
+    const url = 'http://osesach.levcore.app/api/visit/upload';
+    this.http.post(url, formData)      
+      .subscribe(res => {
+          if (res['success']) {
+              console.log('File upload complete.')
+          } else {
+              console.log('File upload failed.')
+          }
+      })    
+  }*/
 
 
 }

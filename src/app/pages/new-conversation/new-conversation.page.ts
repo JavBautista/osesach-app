@@ -9,11 +9,11 @@ import { MessagesService } from '../../services/messages.service';
   styleUrls: ['./new-conversation.page.scss'],
 })
 export class NewConversationPage implements OnInit {
-
-  
   habilitado=true;
   personas: Persona[]=[];
   textoBuscar:'';
+
+  sin_resultados:number=0;
 
   constructor(
     private modalCtrl:ModalController,
@@ -31,9 +31,17 @@ export class NewConversationPage implements OnInit {
   }
 
   siguientes(event?, pull:boolean=false){
-    this.messagesService.getSupervisores(pull, this.textoBuscar)
+    this.messagesService.getPeopleForMessages(pull, this.textoBuscar)
       .subscribe( resp=>{
-        this.personas.push(...resp.data);
+        console.log(resp);
+        if(!resp){
+          this.sin_resultados=1;
+        }else{
+          this.sin_resultados=0;
+          this.personas.push(...resp.data);
+          console.log(this.personas);
+        }
+        
         if(event){
           event.target.complete();
           if(resp.data.length ===0){

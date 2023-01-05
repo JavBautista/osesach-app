@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { DirectoryPage } from '../directory/directory.page';
 import { Directory } from '../../interfaces/interfaces';
 import { DirectoriesService } from '../../services/directories.service';
+import { PhotoService } from '../../services/photo.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class AgenteDirectoryPage implements OnInit {
   constructor(
     private directoriesService:DirectoriesService,
     private toastController: ToastController,
-    private modalCtrl:ModalController
+    private modalCtrl:ModalController,
+    private photoService:PhotoService
 
   ) { }
 
@@ -39,8 +41,26 @@ export class AgenteDirectoryPage implements OnInit {
 
       this.directories[index].status_id = dir.status_id;
 
-      this.presentToast("Visita guardada guardada.");
+      this.presentToast("Visita guardada.");
     });
+
+    this.directoriesService.storeNewImage
+        .subscribe(directory=>{
+          console.log('New Image Emmit');
+          console.log(directory);
+          let index =this.directories.findIndex(s => s.id == directory.id);
+          this.directories[index].image = directory.image;
+          this.presentToast("Imagen gurdada correctamente.");
+        });
+    
+    this.directoriesService.deleteDirectoryImage
+          .subscribe(directory=>{
+            console.log('Delete Image Emmit');
+            console.log(directory);
+            let index =this.directories.findIndex(s => s.id == directory.id);
+            this.directories[index].image = directory.image;          
+            this.presentToast("Imagen eliminada correctamente.");
+          });
     
   }
 

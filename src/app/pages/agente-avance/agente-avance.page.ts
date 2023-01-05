@@ -1,12 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VisitsService } from '../../services/visits.service';
-import { Visit, Directory } from '../../interfaces/interfaces';
+import { Visit, Directory, UserPhoto } from '../../interfaces/interfaces';
 import { ModalController } from '@ionic/angular';
 import { ViewVisitPage } from '../view-visit/view-visit.page';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@awesome-cordova-plugins/launch-navigator/ngx';
+import { DirectoryImagePage } from '../directory-image/directory-image.page';
+import { environment } from '../../../environments/environment';
 
 declare var mapboxgl: any;
 declare var MapboxDirections: any;
+const URL= environment.url;
 
 @Component({
   selector: 'app-agente-avance',
@@ -21,6 +24,9 @@ export class AgenteAvancePage implements OnInit {
 
   habilitado=true;
 
+  src_image='';
+  existe_image=0;
+
   constructor(
     private modalCtrl:ModalController,
     private visitsService:VisitsService,
@@ -31,6 +37,13 @@ export class AgenteAvancePage implements OnInit {
     this.siguientes(null,true);
     
     console.log(this.directory)
+
+    if(this.directory.image){
+      this.existe_image=1;
+      this.src_image = `${URL}/storage/${this.directory.image}`;
+    }
+
+    console.log(this.src_image);
 
     const lat = Number(this.directory.latitud)  ;
     const lng = Number(this.directory.longitud);
@@ -107,5 +120,19 @@ export class AgenteAvancePage implements OnInit {
       console.log(JSON.stringify(err));
     })
   }
+
+  async viewImage(photo: UserPhoto,){
+    const modal = await this.modalCtrl.create({
+     component: DirectoryImagePage,
+     componentProps:{
+       photo:photo,
+       src_image: this.src_image,
+       existe_image:this.existe_image        
+     }      
+   });
+   await modal.present();
+ }
+
+ 
 
 }

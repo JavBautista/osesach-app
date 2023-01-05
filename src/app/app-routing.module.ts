@@ -67,6 +67,30 @@ const routes: Routes = [
     path: 'new-conversation',
     loadChildren: () => import('./pages/new-conversation/new-conversation.module').then( m => m.NewConversationPageModule)
   },
+  {
+    path: 'supervisor-agentes',
+    loadChildren: () => import('./pages/supervisor-agentes/supervisor-agentes.module').then( m => m.SupervisorAgentesPageModule)
+  },
+  {
+    path: 'supervisor-agente-avance',
+    loadChildren: () => import('./pages/supervisor-agente-avance/supervisor-agente-avance.module').then( m => m.SupervisorAgenteAvancePageModule)
+  },
+  {
+    path: 'supervisor-avances',
+    loadChildren: () => import('./pages/supervisor-avances/supervisor-avances.module').then( m => m.SupervisorAvancesPageModule)
+  },
+  {
+    path: 'directory-image',
+    loadChildren: () => import('./pages/directory-image/directory-image.module').then( m => m.DirectoryImagePageModule)
+  },
+  {
+    path: 'admin-supervisores',
+    loadChildren: () => import('./pages/admin-supervisores/admin-supervisores.module').then( m => m.AdminSupervisoresPageModule)
+  },
+  {
+    path: 'admin-supervisor-info',
+    loadChildren: () => import('./pages/admin-supervisor-info/admin-supervisor-info.module').then( m => m.AdminSupervisorInfoPageModule)
+  },
 ];
 @NgModule({
   imports: [

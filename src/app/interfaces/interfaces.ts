@@ -27,6 +27,7 @@ export interface RespuestaPersonas {
 export interface Persona{
     id?:number; 
     active?:number; 
+    description?:string; 
     name?:string; 
     address?:string; 
     movil?:string; 
@@ -35,7 +36,8 @@ export interface Persona{
     date_termination?:Date; 
     observations?:string; 
     created_at?:Date; 
-    updated_at?:Date; 
+    updated_at?:Date;
+    image?:string; 
 }
 
 export interface RespuestaDirectories {
@@ -105,6 +107,7 @@ export interface Directory {
     fecha_incorporacion_denue?:             string;
     created_at?:                            Date;
     updated_at?:                            Date;
+    image?:                                 string;
 }
 
 export interface RespuestaVisits {
@@ -195,11 +198,11 @@ export interface UserPhoto {
 
 export interface Conversation {
     id: number;
-    agent_id?:number;
-    supervisor_id?:number;
     messages?: Message[];
-    supervisor?: Persona;
-    agente?: Persona;
+    person1_id?:number;
+    person2_id?:number;
+    person1?: Persona;
+    person2?: Persona;
     created_at?:Date; 
     updated_at?:Date;  
 }
@@ -212,4 +215,5 @@ export interface Message {
     created_at?:Date; 
     updated_at?:Date; 
   }
+
 

@@ -7,6 +7,9 @@ import { AgenteVisitasPage } from '../agente-visitas/agente-visitas.page';
 import { DirectoryCreatePage } from '../directory-create/directory-create.page';
 import { SearchPage } from '../search/search.page';
 import { AgenteDirectoryPage } from '../agente-directory/agente-directory.page';
+import { SupervisorAgentesPage } from '../supervisor-agentes/supervisor-agentes.page';
+import { SupervisorAvancesPage } from '../supervisor-avances/supervisor-avances.page';
+import { AdminSupervisoresPage } from '../admin-supervisores/admin-supervisores.page';
 
 
 @Component({
@@ -41,6 +44,10 @@ export class Tab1Page implements OnInit  {
     if(option=='nueva-direccion') page = DirectoryCreatePage;
     if(option=='buscar') page = SearchPage;
 
+    if(option=='sup-agentes') page = SupervisorAgentesPage;
+    if(option=='sup-avances') page = SupervisorAvancesPage;
+    
+    if(option=='admin-supervisores') page = AdminSupervisoresPage;
 
     console.log('Abrir '+option);
     const modal = await this.modalCtrl.create({
