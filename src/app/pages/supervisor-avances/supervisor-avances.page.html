@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Avances</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -11,13 +11,13 @@
 
 <ion-content>
 
-  <ion-card mode="ios">  
+  <ion-card mode="ios">
     <ion-card-header>
       <ion-card-title>
         <h3>Avance general</h3>
       </ion-card-title>
     </ion-card-header>
-  
+
     <ion-card-content>
       <ion-list>
         <ion-item>
@@ -46,7 +46,7 @@
         </ion-item>
         <ion-item>
           <ion-progress-bar type="determinate" [value]="porcentaje_progressbar" color="primary"></ion-progress-bar>
-        </ion-item>  
+        </ion-item>
       </ion-list>
 
     </ion-card-content>

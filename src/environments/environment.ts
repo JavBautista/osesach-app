@@ -6,7 +6,11 @@ export const environment = {
   production: false,
   //url: 'http://osesach.local'
   //url: 'https://osesach.levcore.app'
-  url: 'https://osesach.com'
+  url: 'https://osesach.com',
+  auth: {
+    email:"dev@osesach",
+    password:"secret"
+  }
 };
 
 /*

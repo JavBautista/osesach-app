@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Visita</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -25,10 +25,10 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-header>      
+    <ion-card-header>
       <ion-card-title>Detalle de  Visita</ion-card-title>
-    </ion-card-header>    
-    
+    </ion-card-header>
+
     <ion-card-content>
 
       <ion-list mode="ios">
@@ -38,7 +38,7 @@
                 <h2><strong>{{visit.status_id}}</strong></h2>
             </ion-label>
         </ion-item>
-      
+
         <ion-item>
           <ion-label>
             <p>  No. Trabjadores Hombres</p>
@@ -74,14 +74,14 @@
             <h2>{{visit.consulta}}</h2>
           </ion-label>
         </ion-item>
-        
+
       </ion-list>
 
 
     </ion-card-content>
-    
 
-    
+
+
   </ion-card>
 
 </ion-content>

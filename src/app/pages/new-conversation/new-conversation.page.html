@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Seleccione Destinatario</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -33,7 +33,7 @@
         <ion-col size="12" sizeLg="3" sizeMd="4" sizeSm="6" sizeXs="12"
               *ngFor="let persona of personas">
               <ion-item (click)="selectPersona(persona)">
-                  
+
                   <ion-label>
                     <p><sub><ion-text color="medium"><i>{{persona.description }}</i></ion-text></sub></p>
                     <h2>{{persona.name}}</h2>
@@ -42,22 +42,22 @@
                     <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
                   </ion-button>
                 </ion-item>
-                
+
         </ion-col>
       </ion-row>
     </ion-grid>
-      
+
 
     <!--INFINITE SCROLL -->
-    <ion-infinite-scroll 
+    <ion-infinite-scroll
         [disabled]="!habilitado"
-        threshold="150px" 
+        threshold="150px"
         (ionInfinite)="siguientes($event)">
       <ion-infinite-scroll-content>
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
-   
+
   </ion-list>
 
 </ion-content>

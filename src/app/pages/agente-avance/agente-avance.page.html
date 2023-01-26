@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Avance</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  
+
   <ion-card>
     <div id='map' style='width: 400px; height: 300px;'></div>
     <ion-card-header>
@@ -25,15 +25,15 @@
     <ion-button (click)="openNavigatorGoogleMaps()" color="secondary" expand="block" mode="ios" shape="round">
       <ion-icon slot="start" name="map"></ion-icon>
       <ion-icon slot="end" name="open-outline"></ion-icon>
-      Abrir en google maps 
+      Abrir en google maps
     </ion-button>
   </ion-card>
-  
+
 
   <ion-card *ngIf="existe_image==1">
-    <ion-card-header>      
+    <ion-card-header>
       <ion-card-title>Imagen</ion-card-title>
-    </ion-card-header>   
+    </ion-card-header>
     <ion-card-content>
       <ion-list>
 
@@ -41,20 +41,20 @@
             <ion-thumbnail slot="start">
               <ion-img [src]="src_image"></ion-img>
             </ion-thumbnail>
-           
+
             <ion-button slot="end" fill="clear" (click)="viewImage(null)">
               <ion-icon slot="icon-only" name="eye"></ion-icon>
-            </ion-button>            
+            </ion-button>
 
           </ion-item>
       </ion-list>
 
-      
+
 
     </ion-card-content>
   </ion-card>
 
- 
+
 
   <ion-list>
     <ion-list-header> Visitas realizadas </ion-list-header>

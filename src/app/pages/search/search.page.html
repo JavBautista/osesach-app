@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Buscar</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -34,7 +34,7 @@
               </ion-thumbnail>
               <ion-label>
                 <h2>{{directory.nombre_unidad}}</h2>
-                <p>{{directory.nombre_vialidad}} # {{directory.numero_exterior_o_kilometro}}</p>                
+                <p>{{directory.nombre_vialidad}} # {{directory.numero_exterior_o_kilometro}}</p>
                 <p>Col. {{directory.nombre_asentamiento_humano}} </p>
                 <p>CP. {{directory.codigo_postal}} </p>
                 <h3>Asignado {{ directory.asignada?'SI':'NO' }} </h3>
@@ -47,15 +47,15 @@
   </ion-grid>
 
   <!--INFINITE SCROLL -->
-  <ion-infinite-scroll 
+  <ion-infinite-scroll
       [disabled]="!habilitado"
-      threshold="150px" 
+      threshold="150px"
       (ionInfinite)="siguientes($event)">
     <ion-infinite-scroll-content>
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
- 
+
 </ion-list>
 
 </ion-content>

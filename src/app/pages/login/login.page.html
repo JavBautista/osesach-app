@@ -1,92 +1,26 @@
-<ion-content>
-
-
-  <ion-slides class="mainSlide">
-    
-    <ion-slide>
-
-      <form (ngSubmit)="login(fLogin)" #fLogin="ngForm">
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col>
-              <h1>OSESACH</h1>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col size="6">
-              <img src="/assets/images/logo.png">
-              <ion-text color="tertiary">
-                <p>San Andrés CHOLULA</p>
-              </ion-text>
-            </ion-col>
-            <ion-col size="6" style="text-align: left;">
-              <ion-text color="primary">
-                <h3 color="primary">SECRETARÍA DE FOMENTO ECONÓMICO</h3>
-              </ion-text>
-              <ion-text color="secondary">
-                <p>Ayuntamiento<br>2021-2024</p>
-              </ion-text>
-              
-            </ion-col>
-          </ion-row>
-          <h2>Login</h2>
-          <ion-row>
-            <ion-col>
-              
-                <ion-list>
-                  
-                  <ion-item>
-                    <ion-label>Email</ion-label>
-                    <ion-input name="email"
-                                type="email"
-                                [(ngModel)]="loginUser.email"
-                                required></ion-input>
-                  </ion-item>
-
-                  <ion-item>
-                    <ion-label>Password</ion-label>
-                    <ion-input name="password"
-                                type="password"
-                                [(ngModel)]="loginUser.password"
-                                required></ion-input>
-                  </ion-item>
-
-                </ion-list>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit"
-                          color="tertiary"
-                          shape="round">
-                Login
-              </ion-button>
-            </ion-col>
-          </ion-row>
-
-        </ion-grid>
-      </form>
-    
-    </ion-slide>
-
-
-
-
-  </ion-slides>
-
-
-
+<ion-content class="ion-padding">
+  <form (ngSubmit)="login(fLogin)" #fLogin="ngForm">
+    <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <img src="/assets/images/logo.png">
+          <ion-text color="tertiary">
+            <p color="dark">OSESACH APP v1.0</p>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <h2 class="ion-text-center">Login</h2>
+      <ion-input name="email" type="email" [(ngModel)]="loginUser.email" placeholder="Email" required></ion-input>
+      <ion-input name="password" type="password" [(ngModel)]="loginUser.password" placeholder="Password" required></ion-input><br>
+      <ion-button size="block" type="submit" color="tertiary" shape="round" shape="round" color="dark"> Login </ion-button>
+      <ion-text color="secondary" class="ion-text-center">
+        <p>OSESACH APP<br>2021-2024</p>
+      </ion-text>
+  </form>
 </ion-content>
-
-
-<ion-footer no-border>
-  <ion-list>
-    
-    <ion-item>
-      <ion-label>OSESACH v0.1</ion-label>
-      <ion-note>Powered by Levcore.app</ion-note>
-    </ion-item>
-  </ion-list>
+<ion-footer style="background: white;" class="ion-no-border">
+  <ion-item>
+    <small>
+      <ion-label>OSESACH v0.1<small>Powered by Levcore.app</small></ion-label>
+    </small>
+  </ion-item>
 </ion-footer>

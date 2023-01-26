@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>
       Directorio
     </ion-title>
@@ -7,86 +7,77 @@
 </ion-header>
 
 <ion-content>
-  <ion-list mode="ios" class="ion-no-border">
+  <ion-list mode="ios" class="ion-no-border" lines="none" detail style="margin-top: 1%;">
 
     <!-- AGENTES -->
     <ion-item-group>
-      
-      <ion-item button (click)="openPage('agente-directory')" >
-        <ion-thumbnail slot="start">
-          <img alt="Directory" src="/assets/images/directory.png" />
-        </ion-thumbnail>
+
+      <ion-item button (click)="openPage('agente-directory')" lines="none" detail>
+        <ion-avatar>
+          <img src="/assets/images/directory.png" />
+        </ion-avatar>
         <ion-label>
           Directorio
         </ion-label>
       </ion-item>
-      <ion-item button (click)="openPage('agente-visitas')" >
-        <ion-thumbnail slot="start">
-          <img alt="Visitas" src="/assets/images/visits.png" />
-        </ion-thumbnail>
+      <ion-item button (click)="openPage('agente-visitas')" lines="none" detail>
+        <ion-avatar slot="start">
+          <img src="/assets/images/visits.png" />
+        </ion-avatar>
         <ion-label>
           Visitas
         </ion-label>
       </ion-item>
-      
-      <ion-item button (click)="openPage('nueva-direccion')" >
-        <ion-thumbnail slot="start">
+
+      <ion-item button (click)="openPage('nueva-direccion')" lines="none" detail>
+        <ion-avatar slot="start">
           <img alt="Agregar" src="/assets/images/add-location.png" />
-        </ion-thumbnail>
+        </ion-avatar>
         <ion-label>
           Nuevo Registro
         </ion-label>
       </ion-item>
-      <ion-item button (click)="openPage('buscar')" >
-        <ion-thumbnail slot="start">
+      <ion-item button (click)="openPage('buscar')" lines="none" detail>
+        <ion-avatar slot="start">
           <img alt="Buscar" src="/assets/images/search.png" />
-        </ion-thumbnail>
+        </ion-avatar>
         <ion-label>
           Buscar Unidad
         </ion-label>
       </ion-item>
-      
+
     </ion-item-group>
-    
+
 
     <!-- SUPERVISORES -->
     <ion-item-group *ngIf="usuario.role_id==4 || usuario.role_id==2">
-    
-      <ion-item button (click)="openPage('sup-agentes')" >
-        <ion-thumbnail slot="start">
+
+      <ion-item button (click)="openPage('sup-agentes')" lines="none" detail>
+        <ion-avatar slot="start">
           <img alt="Silhouette of mountains" src="/assets/images/users.png" />
-        </ion-thumbnail>
+        </ion-avatar>
         <ion-label>
           Agentes
         </ion-label>
       </ion-item>
 
-      <ion-item *ngIf="usuario.role_id==2" button (click)="openPage('admin-supervisores')" >
-        <ion-thumbnail slot="start">
+      <ion-item *ngIf="usuario.role_id==2" button (click)="openPage('admin-supervisores')" lines="none" detail>
+        <ion-avatar slot="start">
           <img alt="Silhouette of mountains" src="/assets/images/supervisor.png" />
-        </ion-thumbnail>
+        </ion-avatar>
         <ion-label>
           Supervisores
         </ion-label>
       </ion-item>
-      
-      <ion-item button (click)="openPage('sup-avances')" >
-        <ion-thumbnail slot="start">
+
+      <ion-item button (click)="openPage('sup-avances')" lines="none" detail>
+        <ion-avatar slot="start">
           <img alt="Silhouette of mountains" src="/assets/images/chart.png" />
-        </ion-thumbnail>
+        </ion-avatar>
         <ion-label>
           Avance
         </ion-label>
       </ion-item>
-
     </ion-item-group>
-
-    <!-- ADMINISTRATIVOS -->
-    <ion-item-group *ngIf="usuario.role_id==2">
-    
-      
-    </ion-item-group>
-    
-  
   </ion-list>
 </ion-content>

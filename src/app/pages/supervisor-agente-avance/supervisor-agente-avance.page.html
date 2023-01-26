@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Avance</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -11,15 +11,15 @@
 
 <ion-content>
 
-  <ion-card mode="ios">  
-    
+  <ion-card mode="ios">
+
     <img *ngIf="existe_image==0" alt="usuario" src="/assets/images/user-mute.png" />
     <img *ngIf="existe_image==1" alt="usuario" [src]="src_image" />
-    
+
     <ion-card-header>
       <ion-card-title>{{ persona.name }}</ion-card-title>
     </ion-card-header>
-  
+
     <ion-card-content>
       <ion-list>
         <ion-item>
@@ -46,25 +46,25 @@
             <p>{{persona.date_admission}}</p>
           </ion-label>
         </ion-item>
-        
+
         <ion-item>
           <ion-textarea placeholder="" [autoGrow]="true"
             value="{{persona.observations}}" readonly>
           </ion-textarea>
         </ion-item>
-       
+
       </ion-list>
-     
+
     </ion-card-content>
   </ion-card>
 
-  <ion-card mode="ios">  
+  <ion-card mode="ios">
     <ion-card-header>
       <ion-card-title>
         <h3>Avance</h3>
       </ion-card-title>
     </ion-card-header>
-  
+
     <ion-card-content>
       <ion-list>
         <ion-item>
@@ -85,7 +85,7 @@
         </ion-item>
         <ion-item>
           <ion-progress-bar type="determinate" [value]="porcentaje_progressbar" color="primary"></ion-progress-bar>
-        </ion-item>  
+        </ion-item>
       </ion-list>
 
     </ion-card-content>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Directorio</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()">
@@ -30,17 +30,17 @@
     <ion-button (click)="openNavigatorGoogleMaps()" color="secondary" expand="block" mode="ios" shape="round">
       <ion-icon slot="start" name="map"></ion-icon>
       <ion-icon slot="end" name="open-outline"></ion-icon>
-      Abrir en google maps 
+      Abrir en google maps
     </ion-button>
   </ion-card>
 
   <ion-card *ngIf="existe_image==0">
-    <ion-card-header>      
+    <ion-card-header>
       <ion-card-title>Agregar imagen</ion-card-title>
-    </ion-card-header>   
+    </ion-card-header>
     <ion-card-content>
       <ion-list>
-    
+
           <ion-item *ngFor="let photo of photoService.photos; index as position">
             <ion-thumbnail slot="start">
               <ion-img [src]="photo.webviewPath"></ion-img>
@@ -55,7 +55,7 @@
               <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
             </ion-button>
           </ion-item>
-          
+
         </ion-list>
         <ion-button fill="clear" expand="full" (click)="addPhotoToGallery()" [attr.disabled]="foto_tomada ? '' : null">
           <ion-icon slot="start" name="camera"></ion-icon>
@@ -64,9 +64,9 @@
   </ion-card>
 
   <ion-card *ngIf="existe_image==1">
-    <ion-card-header>      
+    <ion-card-header>
       <ion-card-title>Imagen</ion-card-title>
-    </ion-card-header>   
+    </ion-card-header>
     <ion-card-content>
       <ion-list>
 
@@ -74,7 +74,7 @@
             <ion-thumbnail slot="start">
               <ion-img [src]="src_image"></ion-img>
             </ion-thumbnail>
-           
+
             <ion-button slot="end" fill="clear" (click)="viewImage(null)">
               <ion-icon slot="icon-only" name="eye"></ion-icon>
             </ion-button>
@@ -85,16 +85,16 @@
           </ion-item>
       </ion-list>
 
-      
+
 
     </ion-card-content>
   </ion-card>
 
   <ion-card>
-    <ion-card-header>      
+    <ion-card-header>
       <ion-card-title>Marcar Visita</ion-card-title>
-    </ion-card-header>    
-    
+    </ion-card-header>
+
     <ion-card-content>
 
       <ion-list mode="ios">
@@ -104,7 +104,7 @@
                 <h2><strong>{{estatus_visita}}</strong></h2>
             </ion-label>
         </ion-item>
-      
+
         <ion-item>
           <ion-label position="stacked">No. Trabjadores Hombres</ion-label>
           <ion-textarea [(ngModel)]="no_personas_hombres" type="number"></ion-textarea>
@@ -131,21 +131,21 @@
           </ion-label>
           <ion-textarea [(ngModel)]="consulta" placeholder="" type="text"></ion-textarea>
         </ion-item>
-        
+
       </ion-list>
 
 
     </ion-card-content>
-    
-    <ion-button 
-        expand="block" 
+
+    <ion-button
+        expand="block"
         mode="ios"
-        [disabled]="estatus_visita==''" 
+        [disabled]="estatus_visita==''"
         (click)="guardarVisita()"
     >GUARDAR</ion-button>
-    
+
   </ion-card>
 
- 
+
 
 </ion-content>

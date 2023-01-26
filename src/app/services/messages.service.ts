@@ -23,9 +23,9 @@ export class MessagesService  {
   ) { }
 
   getMessagesNotRead(){
-    let user = this.usuarioService.getUsuario(); 
+    let user = this.usuarioService.getUsuario();
     let person_id = user.person_id;
-    
+
     return this.http.get<any>( `${URL}/api/messages/get-not-read?person_id=${person_id}`);
   }//.getMessagesNotRead
 
@@ -33,26 +33,32 @@ export class MessagesService  {
     if(pull){
       this.paginaPersonas=0;
     }
-    let user = this.usuarioService.getUsuario(); 
+    let user = this.usuarioService.getUsuario();
     let person_id = user.person_id;
     let role_id = user.role_id;
     this.paginaPersonas++;
     console.log(`${URL}/api/person/get/personal-for-messages?person_id=${person_id}&role_id=${role_id}&page=${this.paginaPersonas}&buscar=${buscar}`);
     return this.http.get<RespuestaPersonas>( `${URL}/api/person/get/personal-for-messages?person_id=${person_id}&role_id=${role_id}&page=${this.paginaPersonas}&buscar=${buscar}`);
   }//.getPeopleForMessages
-  
 
-  getConversaciones(person_id:number,pull:boolean =false, buscar:string=''){  
-    if(pull){
-      this.paginaConversations=0;
-    }
-    this.paginaConversations++;
 
-    return this.http.get<RespuestaConversations>( `${URL}/api/conversations/get?person_id=${person_id}$page=${this.paginaConversations}&buscar=${buscar}`);
-   
-  }//.getConversaciones
+  getConversaciones(person_id:number,pull:boolean =false, buscar:string=''): Promise<any> {
+    let promise = new Promise((resolve, reject) => {
+      if(pull){
+        this.paginaConversations=0;
+      }
+      this.paginaConversations++;
+      this.http.get<RespuestaConversations>( `${URL}/api/conversations/get?person_id=${person_id}$page=${this.paginaConversations}&buscar=${buscar}`)
+        .toPromise().then((conversaciones)=> {
+          resolve(conversaciones);
+        }).catch(()=> {
+          reject(false);
+        });
+    });
+    return promise;
+  }
 
- 
+
 
   storeMessage(message:string, conversation_id:number,person_id_dest:number,nuevo:number){
     const headers=new HttpHeaders({
@@ -61,8 +67,8 @@ export class MessagesService  {
       'Accept': 'application/json',
       'X-Requested-With':'XMMLHttpRequest'
       });
-    
-      let user = this.usuarioService.getUsuario(); 
+
+      let user = this.usuarioService.getUsuario();
       let person_id = user.person_id;
 
       let postParams={
@@ -82,11 +88,11 @@ export class MessagesService  {
               if(nuevo==1){
                 console.log('nueva conv')
                 this.newConversation.emit(resp['conversation']);
-                resolve(true);       
+                resolve(true);
               }else{
                 console.log('nuevo msg')
-                this.newMessage.emit(resp['message']); 
-                resolve(true);       
+                this.newMessage.emit(resp['message']);
+                resolve(true);
               }
             }else{
               resolve(false);
@@ -104,8 +110,8 @@ export class MessagesService  {
       'Accept': 'application/json',
       'X-Requested-With':'XMMLHttpRequest'
       });
-    
-      let user = this.usuarioService.getUsuario(); 
+
+      let user = this.usuarioService.getUsuario();
       let person_id = user.person_id;
 
       let postParams={
@@ -119,7 +125,7 @@ export class MessagesService  {
             console.log(resp);
             if( resp['ok'] ){
               this.updateMessagesToRead.emit();
-              resolve(true);                     
+              resolve(true);
             }else{
               resolve(false);
             }
