@@ -8,8 +8,8 @@ export const environment = {
   //url: 'https://osesach.levcore.app'
   url: 'https://osesach.com',
   auth: {
-    email:"dev@osesach",
-    password:"secret"
+    email:"",
+    password:""
   }
 };
 

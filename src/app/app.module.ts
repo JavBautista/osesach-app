@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { LaunchNavigator } from '@awesome-cordova-plugins/launch-navigator/ngx';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 
 
@@ -29,7 +30,8 @@ import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy,},
     Geolocation,
     LaunchNavigator,
-    CallNumber
+    CallNumber,
+    InAppBrowser
   ],
   bootstrap: [AppComponent],
 })

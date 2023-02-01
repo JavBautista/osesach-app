@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VisitsService } from '../../services/visits.service';
 import { Visit, Directory, UserPhoto } from '../../interfaces/interfaces';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ViewVisitPage } from '../view-visit/view-visit.page';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@awesome-cordova-plugins/launch-navigator/ngx';
 import { DirectoryImagePage } from '../directory-image/directory-image.page';
 import { environment } from '../../../environments/environment';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 declare var mapboxgl: any;
 declare var MapboxDirections: any;
@@ -31,6 +32,8 @@ export class AgenteAvancePage implements OnInit {
     private modalCtrl:ModalController,
     private visitsService:VisitsService,
     private launchNavigator:LaunchNavigator,
+    private alertController: AlertController,
+    private inapp: InAppBrowser
     ) { }
 
   ngOnInit() {
@@ -109,16 +112,22 @@ export class AgenteAvancePage implements OnInit {
   }
 
   openNavigatorGoogleMaps(){
-    let options: LaunchNavigatorOptions = {
-      app: this.launchNavigator.APP.GOOGLE_MAPS,
-        };
+    const browser = this.inapp.create(`https://google.com/maps/@${this.destino[0]},${this.destino[1]}`, '_system');
+    browser.show();
+    // let options: LaunchNavigatorOptions = {
+    //   app: this.launchNavigator.APP.USER_SELECT,
+    //     };
 
 
-    this.launchNavigator.navigate(this.destino,options).then((res)=>{
-      console.log(res);
-    },(err)=>{
-      console.log(JSON.stringify(err));
-    })
+    // this.launchNavigator.navigate(this.destino,options).then((res)=>{
+    //   console.log(res);
+    // },async (err)=>{
+    //   console.log(JSON.stringify(err));
+    //   let alert = await this.alertController.create({
+    //     message:'Para poder utilizar esta función es necesario cuente con un aplicativo de mapas como Apple Maps, Google maps, etc.'
+    //   });
+    //   alert.present();
+    // })
   }
 
   async viewImage(photo: UserPhoto,){
@@ -132,7 +141,4 @@ export class AgenteAvancePage implements OnInit {
    });
    await modal.present();
  }
-
- 
-
 }

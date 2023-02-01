@@ -8,6 +8,7 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@awesome-cordova-plugin
 import { PhotoService } from '../../services/photo.service';
 import { environment } from '../../../environments/environment';
 import { DirectoryImagePage } from '../directory-image/directory-image.page';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 declare var mapboxgl: any;
 declare var MapboxDirections: any;
@@ -55,6 +56,7 @@ export class DirectoryPage implements OnInit {
       private toastController: ToastController,
       private geolocation:Geolocation,
       public  photoService: PhotoService,
+      private inapp: InAppBrowser
     ) { }
 
   async ngOnInit() {
@@ -423,17 +425,24 @@ export class DirectoryPage implements OnInit {
 
   }
 
-  openNavigatorGoogleMaps(){
-    let options: LaunchNavigatorOptions = {
-      app: this.launchNavigator.APP.GOOGLE_MAPS,
-               start:this.inicio
-        };
+  async openNavigatorGoogleMaps() {
+    const browser = this.inapp.create(`https://google.com/maps/@${this.destino[0]},${this.destino[1]}`, '_system');
+    browser.show();
+
+    // let options: LaunchNavigatorOptions = {
+    //           app: this.launchNavigator.APP.USER_SELECT,
+    //           start:this.inicio
+    //   };
         
-    this.launchNavigator.navigate(this.destino,options).then((res)=>{
-      console.log(res);
-    },(err)=>{
-      console.log(JSON.stringify(err));
-    })
+    // this.launchNavigator.navigate(this.destino,options).then((res)=>{
+    //   console.log(res);
+    // }, async(err)=>{
+    //   console.log(JSON.stringify(err));
+    //   let alert = await this.alertController.create({
+    //     message:'Para poder utilizar esta función es necesario cuente con un aplicativo de mapas como Apple Maps, Google maps, etc.'
+    //   });
+    //   alert.present();
+    // })
   }
 
   editarImage(){
