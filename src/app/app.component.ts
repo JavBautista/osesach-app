@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +8,14 @@ import { NavController } from '@ionic/angular';
 })
 export class AppComponent {
   constructor(
-    private navController: NavController
-  ) {}
-
-  ionViewWillEnter(){
-   let loged = localStorage.getItem('token');
-   if(loged) { this.navController.navigateRoot(['tabs']); } else { this.navController.navigateRoot('login ')}
+    private navController: NavController,
+    private platform: Platform
+  ) {
+    this.platform.ready().then(()=> {
+      let loged = localStorage.getItem('token');
+      if(loged) { this.navController.navigateRoot(['tabs']); } else { this.navController.navigateRoot('login ')}
+    }).catch(()=> {
+      this.navController.navigateRoot('/login')
+    })
   }
 }
